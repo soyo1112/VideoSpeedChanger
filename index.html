@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css"> 
+    <title>gsdc</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+
+  </head>
+  <body> 
+    <div class="all">
+      <h1>Video Speed Changer</h1>
+      <div class="ue">
+        <div id="video">
+        </div>
+      </div>
+      <div class="shita">
+      <input type="button" value="-0.25" onclick="downRate()">
+      <h3 id="playRate">1</h3>
+      <input type="button" value="+0.25" onclick="upRate()">
+      <input id="target" type="file" multiple>
+    </div>
+    </div>
+  <script>
+  let inputFile = document.getElementById("target");
+  inputFile.addEventListener( "change", function() {
+      let fileList = inputFile.files ;
+      let video = document.getElementById('video');
+      let blobUrl = window.URL.createObjectURL( fileList[0] ) ;
+      video.innerHTML += '<video src="' + blobUrl + '" controls width="800" id="mv"></video>' ;    
+  } ) ;
+  let number = document.getElementById('playRate');
+  let playRate = 1;
+  function upRate(){
+    playRate = playRate + 0.25;
+    number.innerHTML = playRate;
+    if(document.getElementById('mv')){
+      let media = document.getElementById("mv");
+      media.loop = true;
+      media.playbackRate = playRate;
+    }
+    return playRate;
+  }
+  function downRate(){
+    if(playRate === 0.25){
+      alert('再生速度はこれ以上小さくできません');
+      return;
+    }
+    playRate = playRate - 0.25;
+    number.innerHTML = playRate;
+    if(document.getElementById('mv')){
+      let media = document.getElementById("mv");
+      media.loop = true;
+      media.playbackRate = playRate;
+    }
+    return playRate;
+  }
+  </script>
+</body>
+</html>
